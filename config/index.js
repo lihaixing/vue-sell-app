@@ -5,6 +5,7 @@
 const path = require('path')
 
 module.exports = {
+  //开发时的配置
   dev: {
 
     // Paths
@@ -47,7 +48,7 @@ module.exports = {
     // just be aware of this issue when enabling this option.
     cssSourceMap: false,
   },
-
+//运行时配置
   build: {
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
