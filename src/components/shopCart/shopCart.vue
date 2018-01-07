@@ -14,13 +14,44 @@
       <div class="content-right" :class="{'enough':totalPrice >= minPrice}">
         {{payDesc}}
       </div>
+      <div class="ball-container">
+        <transition name="pwx" v-for="ball in balls" @before-enter="beforeEnter"
+                    @enter="enter"
+                    @after-enter="afterEnter">
+          <div class="ball" v-show="ball.show"></div>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import Bus from '../Bus'
+
   export default {
     name: 'shop-cart',
+    data () {
+      return {
+        balls: [
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          }
+        ],
+        dropBalls: []
+      }
+    },
     computed: {
       totalPrice () {
         let total = 0
@@ -46,6 +77,54 @@
         }
       }
     },
+    methods: {
+      drop (el) {
+        for (let i = 0; i < this.balls.length; i++) {
+          let ball = this.balls[i]
+          if (!ball.show) {
+            ball.el = el
+            ball.show = true
+            this.dropBalls.push(ball)
+            return
+          }
+        }
+      },
+      beforeEnter: function (el) {
+        let count = this.balls.length
+        while (count--) {
+          let ball = this.balls[count]
+          if (ball.show) {
+            let rect = ball.el.getBoundingClientRect()
+            let x = rect.left - 32
+            let y = -(window.innerHeight - rect.top - 22)
+            el.style.display = ''
+            el.style.webkitTransform = `translate3d(${x}px,${y}px,0)`
+            el.style.transform = `translate3d(${x}px,${y}px,0)`
+            return
+          }
+        }
+      },
+      // 此回调函数是可选项的设置
+      // 与 CSS 结合时使用
+      enter: function (el) {
+        /* eslint-disable no-unused-vars */
+        let rf = el.offsetHeight
+        this.$nextTick(() => {
+          el.style.webkitTransform = 'translate3d(0,0,0)'
+          el.style.transform = 'translate3d(0,0,0)'
+        })
+        // done()
+      },
+      afterEnter: function (el) {
+        this.$nextTick(() => {
+          let ball = this.balls[0]
+          if (ball) {
+            ball.show = false
+            el.style.display = 'none'
+          }
+        })
+      }
+    },
     props: {
       deliveryPrice: {
         type: Number
@@ -56,12 +135,19 @@
       selectFoods: {
         type: Array
       }
+    },
+    created () {
+      Bus.$on('tran', function (target) {
+        console.log(target.tagName)
+      })
     }
   }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-
+.pwx-enter-active{
+  transition: all 0.4s cubic-bezier(0.49,-0.29,0.75,0.41);
+}
   .shopCart {
     width: 100%;
     position: fixed;
@@ -155,6 +241,18 @@
         &.enough {
           background: #00b43c;
           color: #FFF;
+        }
+      }
+      .ball-container {
+        .ball {
+          position: fixed;
+          left: 32px;
+          bottom: 22px;
+          z-index: 200;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: rgb(0, 160, 220);
         }
       }
     }

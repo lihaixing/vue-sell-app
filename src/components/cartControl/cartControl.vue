@@ -14,7 +14,7 @@
 
 <script type="text/ecmascript-6">
   import Vue from 'vue'
-
+  // import Bus from '../Bus'
   export default {
     name: 'cart-control',
     props: {
@@ -23,12 +23,15 @@
       }
     },
     methods: {
-      addCart () {
+      addCart (event) {
         if (!this.food.count) {
           Vue.set(this.food, 'count', 1)
         } else {
           this.food.count++
         }
+        this.$emit('add-goods', event.target)
+        // 非父子组件之间的通信
+        // Bus.$emit('tran', event.target)
       },
       decreaseCart () {
         this.food.count--
@@ -39,13 +42,13 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   /*动画*/
-  .move-enter,.move-leave-to {
+  .move-enter, .move-leave-to {
     opacity: 0;
     /*transform-origin:center center;*/
-    transform: translate3d(24px,0,0) rotateZ(180deg) ;
+    transform: translate3d(24px, 0, 0) rotateZ(180deg);
   }
 
-  .move-enter-active,.move-leave-active {
+  .move-enter-active, .move-leave-active {
     transition: all 0.5s linear;
   }
 
