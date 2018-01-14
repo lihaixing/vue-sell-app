@@ -1,12 +1,12 @@
 <template>
   <div class="cart-control">
     <transition name="move">
-      <div class="cart-decrease" v-show="food.count>0" @click="decreaseCart">
+      <div class="cart-decrease" v-show="food.count>0" @click.stop.prevent="decreaseCart">
         <i class="icon-remove_circle_outline"></i>
       </div>
     </transition>
     <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
-    <div class="cart-add" @click="addCart">
+    <div class="cart-add" @click.stop.prevent="addCart">
       <i class="icon-add_circle"></i>
     </div>
   </div>
@@ -14,7 +14,7 @@
 
 <script type="text/ecmascript-6">
   import Vue from 'vue'
-  // import Bus from '../Bus'
+  import Bus from '../Bus'
   export default {
     name: 'cart-control',
     props: {
@@ -29,11 +29,12 @@
         } else {
           this.food.count++
         }
-        this.$emit('add-goods', event.target)
+        // this.$emit('add-goods', event.target)
         // 非父子组件之间的通信
-        // Bus.$emit('tran', event.target)
+        Bus.$emit('tran', event.target)
       },
       decreaseCart () {
+        event.stopPropagation()
         this.food.count--
       }
     }
