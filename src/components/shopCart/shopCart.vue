@@ -50,7 +50,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Bus from '../Bus'
+  import Bus from '../../common/js/Bus'
   import BScroll from 'better-scroll'
   import cartControl from '../cartControl/cartControl'
 
@@ -277,7 +277,7 @@
           line-height: 24px;
           margin-top: 12px;
           box-sizing: border-box;
-          padding-right: 12px;
+          padding-right: 6px;
           border-right: 1px solid rgba(255, 255, 255, 0.1);
           font-size: 16px;
           font-weight: 700;
@@ -288,7 +288,7 @@
         }
         .desc {
           display: inline-block;
-          margin: 12px 0 0 12px;
+          margin: 12px 0 0 6px;
           line-height: 24px;
           font-size: 10px;
           color: rgba(255, 255, 255, 0.4);

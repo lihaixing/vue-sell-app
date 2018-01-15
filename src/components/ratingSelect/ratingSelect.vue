@@ -1,14 +1,15 @@
 <template>
   <div class="rating-select">
     <div class="rating-type">
-      <span class="block positive" :class="{'active':sType===2}" @click.stop="select(2)">{{desc.all}}<span
+      <span class="block positive" :class="{'active':ratingFilter.selectType===2}"
+            @click.stop="select(2)">{{desc.all}}<span
         class="count">{{ratings.length}}</span></span>
-      <span class="block positive" :class="{'active':sType===0}" @click.stop="select(0)">{{desc.positive}}<span
+      <span class="block positive" :class="{'active':ratingFilter.selectType===0}" @click.stop="select(0)">{{desc.positive}}<span
         class="count">{{positives.length}}</span></span>
-      <span class="block negative" :class="{'active':sType===1}" @click.stop="select(1)">{{desc.negative}}<span
+      <span class="block negative" :class="{'active':ratingFilter.selectType===1}" @click.stop="select(1)">{{desc.negative}}<span
         class="count">{{negatives.length}}</span></span>
     </div>
-    <div class="switch" :class="{'on':onlyContent}" @click="toggleContent">
+    <div class="switch" :class="{'on':ratingFilter.onlyContent}" @click="toggleContent">
       <i class="icon-check_circle"></i>
       <span class="text">只看有内容的评价</span>
     </div>
@@ -19,12 +20,10 @@
   export default {
     name: 'rating-select',
     data () {
-      return {
-        sType: this.selectType,
-        oContent: this.onlyContent
-      }
+      return {}
     },
-    computed: {
+    computed: { // sType: this.selectType,
+      // oContent: this.onlyContent
       positives () {
         return this.ratings.filter((rating) => {
           return rating.rateType === 0
@@ -38,12 +37,10 @@
     },
     methods: {
       select (type) {
-        this.sType = type
-        this.$emit('ratingSelect', this.sType)
+        this.ratingFilter.selectType = type
       },
       toggleContent () {
-        this.oContent = !this.oContent
-        this.$emit('ratingToggleContent', this.oContent)
+        this.ratingFilter.onlyContent = !this.ratingFilter.onlyContent
       }
     },
     props: {
@@ -53,13 +50,11 @@
           return []
         }
       },
-      selectType: {
-        type: Number,
-        default: 2
-      },
-      onlyContent: {
-        type: Boolean,
-        default: false
+      ratingFilter: {
+        type: Object,
+        default () {
+          return {}
+        }
       },
       desc: {
         type: Object,

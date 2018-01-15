@@ -5,7 +5,7 @@
 const path = require('path')
 
 module.exports = {
-  //开发时的配置
+  // 开发时的配置
   dev: {
 
     // Paths
@@ -46,9 +46,9 @@ module.exports = {
     // (https://github.com/webpack/css-loader#sourcemaps)
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
-    cssSourceMap: false,
+    cssSourceMap: false
   },
-//运行时配置
+// 运行时配置
   build: {
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
@@ -56,7 +56,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps

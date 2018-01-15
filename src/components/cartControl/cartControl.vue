@@ -14,7 +14,7 @@
 
 <script type="text/ecmascript-6">
   import Vue from 'vue'
-  import Bus from '../Bus'
+  import Bus from '../../common/js/Bus'
   export default {
     name: 'cart-control',
     props: {
