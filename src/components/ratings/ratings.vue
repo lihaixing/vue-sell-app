@@ -1,6 +1,8 @@
 <template>
-  <div>
-    我是评论
+  <div class="ratings">
+    <div class="ratings-content">
+
+    </div>
   </div>
 </template>
 
@@ -11,5 +13,11 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-
+  .ratings{
+    position:absolute;
+    width:100%;
+    top:174px;
+    bottom:0;
+    left:0;
+  }
 </style>

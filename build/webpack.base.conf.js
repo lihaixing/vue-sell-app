@@ -1,11 +1,11 @@
 'use strict'
-//path提供一些文件路径操作方法
+// path提供一些文件路径操作方法
 const path = require('path')
-//用来启动一个web server
+// 用来启动一个web server
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-//定义当前根目录
+// 定义当前根目录
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -37,7 +37,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
+      '@': resolve('src')
     }
   },
   module: {
