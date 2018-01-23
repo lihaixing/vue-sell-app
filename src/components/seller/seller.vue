@@ -67,7 +67,7 @@
     name: 'seller',
     data () {
       return {
-        classMap: []
+        classMap: ['decrease', 'discount', 'guarantee', 'special', 'invoice']
       }
     },
     props: {
@@ -90,8 +90,10 @@
         }
       },
       picScrollInit () {
-        let width = (120 + 6) * (this.seller.pics.length) - 6
-        this.$refs.picList.style.width = width + 'px'
+        if (this.seller.pics) {
+          let width = (120 + 6) * (this.seller.pics.length) - 6
+          this.$refs.picList.style.width = width + 'px'
+        }
         if (!this.scrollPics) {
           this.scrollPics = new BScroll(this.$refs.picWrapper, {
             scrollX: true,
@@ -115,7 +117,6 @@
     watch: {
       seller () {
         console.log(3)
-        this.classMap = ['decrease', 'discount', 'guarantee', 'special', 'invoice']
         // 同步
         this.$nextTick(() => {
           this.scrollInit()
