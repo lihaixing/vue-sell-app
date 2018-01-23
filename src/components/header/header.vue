@@ -42,7 +42,7 @@
               <div class="text">优惠信息</div>
               <div class="line"></div>
             </div>
-            <ul class="supports">
+            <ul class="supports" v-if="seller.supports">
               <li class="support-item" v-for="item in seller.supports">
                 <span class="icon" :class="classMap[item.type]"></span>
                 <span class="text">{{item.description}}</span>
@@ -261,7 +261,7 @@
       height: 100%;
       overflow: auto;
       background: rgba(7, 17, 27, 0.8);
-      -webkit-backdrop-filter:blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       &.fade-enter {
         opacity: 0
       }

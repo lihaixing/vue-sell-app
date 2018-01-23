@@ -1,5 +1,5 @@
 <template>
-  <div class="ratings">
+  <div class="ratings" ref="ratingsWrapper">
     <div class="ratings-content">
       <div class="overview">
         <div class="overview-left">
@@ -28,7 +28,7 @@
       <ratingSelect :ratingFilter="ratingFilter" :desc="desc" :ratings="ratings"></ratingSelect>
       <div class="rating-wrapper">
         <ul>
-          <li class="rating-item" v-for="rating in ratings">
+          <li class="rating-item" v-for="rating in ratings" v-show="isShowRating(rating.rateType,rating.text)">
             <div class="avatar">
               <img width="28" height="28" :src="rating.avatar" alt="">
             </div>
@@ -43,7 +43,7 @@
                 <i class="icon-thumb_up"></i>
                 <span class="recommend-item" v-for="recommend in rating.recommend">{{recommend}}</span>
               </div>
-              <div class="time">{{rating.time}}</div>
+              <div class="time">{{rating.rateTime}}</div>
             </div>
           </li>
         </ul>
@@ -53,6 +53,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import BScroll from 'better-scroll'
   import star from '../star/star'
   import split from '../split/split'
   import ratingSelect from '../ratingSelect/ratingSelect'
@@ -73,6 +74,18 @@
         }
       }
     },
+    methods: {
+      isShowRating (rateType, text) {
+        if (this.ratingFilter.onlyContent && !text) {
+          return false
+        }
+        if (this.ratingFilter.selectType === 2) {
+          return true
+        } else {
+          return rateType === this.ratingFilter.selectType
+        }
+      }
+    },
     props: {
       seller: {
         type: Object
@@ -90,9 +103,11 @@
           // 这是异步的
           this.ratings = res.ratings
           // 表示dom更新完成之后执行
-          // this.$nextTick(() => {
-          //   this._initScroll()
-          // })
+          this.$nextTick(() => {
+            this.scroll = new BScroll(this.$refs.ratingsWrapper, {
+              click: true
+            })
+          })
         }
       })
     }
@@ -173,6 +188,68 @@
             color: rgb(147, 153, 159);
             font-size: 12px;
             margin-left: 12px;
+          }
+        }
+      }
+    }
+    .rating-wrapper {
+      padding: 0 18px;
+      .rating-item {
+        display: flex;
+        padding: 18px 0;
+        border-1px(rgba(7, 17, 27, 0.1));
+        .avatar {
+          flex: 0 0 28px;
+          width: 28px;
+          margin-right: 12px;
+          img {
+            border-radius: 50%;
+          }
+        }
+        .content {
+          position: relative;
+          flex: 1;
+          .name {
+            margin-bottom: 4px;
+            line-height: 12px;
+            font-size: 10px;
+            color: rgb(7, 17, 27);
+          }
+          .star-wrapper {
+            margin-bottom: 6px;
+            font-size: 0;
+            .star {
+              display: inline-block;
+              margin-right: 6px;
+            }
+            .delivery {
+              font-size: 12px;
+            }
+          }
+          .text {
+            line-height: 18px;
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: rgb(7, 17, 27);
+          }
+          .recommend {
+            line-height: 16px;
+            font-size: 0;
+            .icon-thumb_up, .recommend-item {
+              display: inline-block;
+              margin: 0 8px 4px 0;
+              font-size: 9px;
+            }
+            .icon-thumb_up {
+              color: rgb(0, 160, 220);
+            }
+            .recommend-item {
+              padding: 0 6px;
+              border: 1px solid rgba(7, 17, 27, 0.1);
+              border-radius: 1px;
+              color: rgb(147, 153, 159);
+              background: #FFF;
+            }
           }
         }
       }
