@@ -12,12 +12,15 @@
         <router-link :to="{path:'/seller'}">商家</router-link>
       </div>
     </div>
-    <router-view :seller="seller"></router-view>
+    <keep-alive>
+      <router-view :seller="seller"></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script>
   import vHeader from './components/header/header'
+  // import {urlParse} from '@/common/js/util'
 
   export default {
     name: 'app',
@@ -26,14 +29,20 @@
     },
     data () {
       return {
-        seller: {}
+        seller: {
+          // id: (() => {
+          //   let queryParam = urlParse()
+          //   return queryParam.id
+          // })()
+        }
       }
     },
     created () {
-      this.$http.get('/api/seller').then((res) => {
+      this.$http.get('/api/seller?id=' + this.seller.id).then((res) => {
         res = res.body
         if (res.errno === 0) {
           this.seller = res.seller
+          // this.seller = Object.assign({}, res.seller, {id: this.seller.id})
         }
       })
     }

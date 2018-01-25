@@ -13,35 +13,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const env = require('../config/prod.env')
 
-// 模拟接口
-const express = require('express')
-const app = express()
-var appData = require('../data.json')
-var seller = appData.seller
-var goods = appData.goods
-var ratings = appData.ratings
-var apiRoutes = express.Router()
-apiRoutes.get('/seller', function (req, res) {
-  res.json({
-    errno: 0,
-    seller: seller
-  })
-})
-apiRoutes.get('/goods', function (req, res) {
-  res.json({
-    errno: 0,
-    goods: goods
-  })
-})
-apiRoutes.get('/ratings', function (req, res) {
-  res.json({
-    errno: 0,
-    ratings: ratings
-  })
-})
-
-app.use('/api', apiRoutes)
-
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({

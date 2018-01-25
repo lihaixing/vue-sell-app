@@ -12,22 +12,26 @@
           <li class="block">
             <h2>起送价</h2>
             <div class="content">
-              <span class="stress">{{seller.minPrice}}元</span>
+              <span class="stress">{{seller.minPrice}}</span>元
             </div>
           </li>
           <li class="block">
             <h2>商家配送</h2>
             <div class="content">
-              <span class="stress">{{seller.deliveryPrice}}元</span>
+              <span class="stress">{{seller.deliveryPrice}}</span>元
             </div>
           </li>
           <li class="block">
             <h2>平均配送时间</h2>
             <div class="content">
-              <span class="stress">{{seller.deliveryTime}}分钟</span>
+              <span class="stress">{{seller.deliveryTime}}</span>分钟
             </div>
           </li>
         </ul>
+        <div class="favorite" @click="toggleFavorite">
+          <i class="icon-favorite" :class="{'active':favorite}"></i>
+          <span class="text">{{favoriteText}}</span>
+        </div>
       </div>
       <split></split>
       <div class="bulletin">
@@ -67,7 +71,13 @@
     name: 'seller',
     data () {
       return {
-        classMap: ['decrease', 'discount', 'guarantee', 'special', 'invoice']
+        classMap: ['decrease', 'discount', 'guarantee', 'special', 'invoice'],
+        favorite: false
+      }
+    },
+    computed: {
+      favoriteText () {
+        return this.favorite ? '已收藏' : '收藏'
       }
     },
     props: {
@@ -102,6 +112,9 @@
         } else {
           this.scrollPics.refresh()
         }
+      },
+      toggleFavorite () {
+        this.favorite = !this.favorite
       }
     },
     created () {
@@ -138,6 +151,7 @@
     overflow: hidden;
     .overview {
       padding: 18px;
+      position: relative;
       .title {
         color: rgb(7, 17, 27);
         margin-bottom: 8px;
@@ -168,10 +182,39 @@
         .block {
           flex: 1;
           text-align: center;
+          color: #909090;
           border-right: 1px solid rgba(7, 17, 27, 0.1);
           &:last-child {
             border: none;
           }
+          h2{
+            margin-bottom:5px;
+          }
+          .stress {
+            font-size: 28px;
+            color: #000;
+          }
+        }
+      }
+      .favorite {
+        position: absolute;
+        right: 18px;
+        top: 18px;
+        width: 50px;
+        text-align: center;
+        i {
+          display: block;
+          color: #d4d6d9;
+          line-height: 24px;
+          font-size: 24px;
+          &.active {
+            color: rgb(240, 20, 20);
+          }
+        }
+        .text {
+          line-height: 10px;
+          color: rgb(77, 84, 93);
+          font-size: 14px;
         }
       }
     }
