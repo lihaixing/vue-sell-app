@@ -70,7 +70,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     // 调接口所用
     before (app) {
       app.use('/api', apiRoutes)
-    }
+    },
+    disableHostCheck: true
   },
   plugins: [
     new webpack.DefinePlugin({
