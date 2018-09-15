@@ -16,6 +16,7 @@ Vue.use(VueResource)
 let router = new VueRouter({
   mode: 'history',
   linkActiveClass: 'active',
+  base: '/vue-sell-app/',
   routes: [
     {
       path: '/',
