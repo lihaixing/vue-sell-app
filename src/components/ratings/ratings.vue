@@ -43,7 +43,7 @@
                 <i class="icon-thumb_up"></i>
                 <span class="recommend-item" v-for="recommend in rating.recommend">{{recommend}}</span>
               </div>
-              <div class="time">{{rating.rateTime}}</div>
+              <div class="time">{{formatDate(rating.rateTime,'yyyy-MM-dd HH:mm:ss')}}</div>
             </div>
           </li>
         </ul>
@@ -57,6 +57,7 @@
   import star from '../star/star'
   import split from '../split/split'
   import ratingSelect from '../ratingSelect/ratingSelect'
+  import formatDate from '../../common/js/date'
 
   export default {
     name: 'ratings',
@@ -75,6 +76,7 @@
       }
     },
     methods: {
+      formatDate: formatDate,
       isShowRating (rateType, text) {
         if (this.ratingFilter.onlyContent && !text) {
           return false
@@ -250,6 +252,10 @@
               color: rgb(147, 153, 159);
               background: #FFF;
             }
+          }
+          .time{
+            font-size: 12px;
+            color: #93999f;
           }
         }
       }

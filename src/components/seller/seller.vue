@@ -188,11 +188,10 @@
             border: none;
           }
           h2{
-            margin-bottom:5px;
+            margin-bottom:10px;
           }
           .stress {
-            font-size: 28px;
-            color: #000;
+            font-size: 20px;
           }
         }
       }
