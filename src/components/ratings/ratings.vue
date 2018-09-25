@@ -99,7 +99,7 @@
       ratingSelect
     },
     created () {
-      this.$http.get('https://yapi-dev.ycdmm.com/mock/31/ratings').then((res) => {
+      this.$http.get('http://yapi.demo.qunar.com/mock/20004/ratings').then((res) => {
         res = res.body
         if (res.errno === 0) {
           // 这是异步的

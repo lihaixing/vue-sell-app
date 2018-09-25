@@ -38,7 +38,7 @@
       }
     },
     created () {
-      this.$http.get('https://yapi-dev.ycdmm.com/mock/31/seller').then((res) => {
+      this.$http.get('http://yapi.demo.qunar.com/mock/20004/seller').then((res) => {
         res = res.body
         if (res.errno === 0) {
           this.seller = res.seller

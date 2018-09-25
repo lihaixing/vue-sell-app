@@ -16,7 +16,7 @@
           {{payDesc}}
         </div>
         <div class="ball-container">
-          <transition name="pwx" v-for="ball in balls" @before-enter="beforeEnter"
+          <transition name="pwx" v-for="(ball,index) in balls" :key="index" @before-enter="beforeEnter"
                       @enter="enter"
                       @after-enter="afterEnter">
             <div class="ball" v-show="ball.show"></div>
